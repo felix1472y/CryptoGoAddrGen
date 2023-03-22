@@ -9,21 +9,40 @@ import (
 )
 
 func main() {
-	coin := flag.String("coin", "", "crypto coin name")
 
-	flag.Parse()
+	// 定義子命令
+	cmd := flag.NewFlagSet("generate", flag.ExitOnError)
+	coin := cmd.String("coin", "", "crypto coin name")
 
-	// 確保參數存在
-	if *coin == "" {
-		fmt.Println("Missing required argument -coin")
+	// 確認有子命令
+	if len(os.Args) < 2 {
+		fmt.Println("Missing subcommand: generate")
 		os.Exit(1)
 	}
 
-	if *coin == "bitcoin" {
-		fmt.Println("btc address:", btc.GenerateBTCAddress())
-	}
+	// 解析子命令
+	switch os.Args[1] {
+	case "generate":
+		err := cmd.Parse(os.Args[2:])
+		if err != nil {
+			os.Exit(1)
+		}
 
-	if *coin == "ethereum" {
-		fmt.Println("eth address:", eth.GenerateETHAddress())
+		// 確保參數存在
+		if *coin == "" {
+			fmt.Println("Missing required argument -coin")
+			os.Exit(1)
+		}
+
+		if *coin == "bitcoin" {
+			fmt.Println("btc address:", btc.GenerateBTCAddress())
+		}
+
+		if *coin == "ethereum" {
+			fmt.Println("eth address:", eth.GenerateETHAddress())
+		}
+	default:
+		fmt.Println("Invalid subcommand:", os.Args[1])
+		os.Exit(1)
 	}
 }
