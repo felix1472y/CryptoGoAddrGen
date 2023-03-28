@@ -3,6 +3,7 @@ package main
 import (
 	"CryptoGoAddrGen/btc"
 	"CryptoGoAddrGen/eth"
+	"CryptoGoAddrGen/ltc"
 	"flag"
 	"fmt"
 	"os"
@@ -41,6 +42,11 @@ func main() {
 		if *coin == "ethereum" {
 			fmt.Println("eth address:", eth.GenerateETHAddress())
 		}
+
+		if *coin == "litecoin" {
+			fmt.Println("lit address:", ltc.GenerateLTCAddress())
+		}
+
 	default:
 		fmt.Println("Invalid subcommand:", os.Args[1])
 		os.Exit(1)
