@@ -2,6 +2,7 @@ package main
 
 import (
 	"CryptoGoAddrGen/btc"
+	"CryptoGoAddrGen/doge"
 	"CryptoGoAddrGen/eth"
 	"CryptoGoAddrGen/ltc"
 	"flag"
@@ -45,6 +46,10 @@ func main() {
 
 		if *coin == "litecoin" {
 			fmt.Println("lit address:", ltc.GenerateLTCAddress())
+		}
+
+		if *coin == "dogecoin" {
+			fmt.Println("doge address:", doge.GenerateDOGEAddress())
 		}
 
 	default:
